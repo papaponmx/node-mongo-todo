@@ -1,0 +1,8 @@
+{
+  "name": "node-todo-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:papaponmx/node-mongo-todo.git",
+  "author": "Jaime Rios <jaimememadrigalrios@gmail.com>",
+  "license": "MIT"
+}
