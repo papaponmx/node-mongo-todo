@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "git@github.com:papaponmx/node-mongo-todo.git",
   "author": "Jaime Rios <jaimememadrigalrios@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^5.2.13"
+  }
 }
