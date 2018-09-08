@@ -8,14 +8,14 @@ MongoClient.connect(
     }
     console.log('Connected to MongoDB server')
 
-    db.collection('Todos')
+    db.collection('Users')
       .findOneAndUpdate(
         {
-          text: 'Eat lunch'
+          _id: new ObjectID('5b888a4d9730bd3862bd549f')
         },
         {
-          $set: {
-            completed: true
+          $inc: {
+            age: 1
           }
         },
         {
