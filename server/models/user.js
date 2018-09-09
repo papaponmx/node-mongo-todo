@@ -1,3 +1,5 @@
+const { mongoose } = require('../db/mongoose');
+
 const UserModel = mongoose.model('User', {
   email: {
     type: String,

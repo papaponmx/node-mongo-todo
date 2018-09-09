@@ -1,4 +1,6 @@
-const Todo = mongoose.model('Todo', {
+const { mongoose } = require('../db/mongoose.js');
+
+const TodoModel = mongoose.model('Todo', {
   text: {
     type: String,
     required: true,
