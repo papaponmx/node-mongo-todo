@@ -32,4 +32,22 @@ describe('POST /todos', () => {
         }).catch(e => done(e));
       });
   });
+
+  it('should not create a TODO with invalid body data', (done) => {
+    request(app)
+     .post('/todos')
+     .send({})
+     .expect(400)
+     .end((err, res) => {
+       if (err) {
+         return done(err);
+       }
+       TodoModel.find().then((todos) => {
+         expect(todos.length).toBe(0);
+         done();
+       }).catch(err => done(err));
+     })
+  });
+
+
 });
