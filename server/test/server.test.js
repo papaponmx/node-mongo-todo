@@ -4,9 +4,16 @@ const request = require('supertest');
 const { app } = require('../server');
 const { TodoModel } = require('../models/todo');
 
+const initialTodos = [
+  { text: 'First Initial Todo'},
+  { text: 'Second Initial Todo'}
+]
+
 beforeEach(done => {
- TodoModel.deleteOne({}).then(() => done())
- .catch(err => done(err))
+ TodoModel.deleteMany({})
+   .then(()=> TodoModel.insertMany(initialTodos))
+   .then(() => done())
+   .catch(err => done(err))
 })
 
 describe('POST /todos', () => {
@@ -25,7 +32,7 @@ describe('POST /todos', () => {
           done(err);
         }
 
-        TodoModel.find().then(todos => {
+        TodoModel.find({ text }).then(todos => {
           expect(todos.length).toBe(1);
           expect(todos[0].text).toBe(text);
           done();
@@ -43,7 +50,7 @@ describe('POST /todos', () => {
          return done(err);
        }
        TodoModel.find().then((todos) => {
-         expect(todos.length).toBe(0);
+         expect(todos.length).toBe(2);
          done();
        }).catch(err => done(err));
      })
