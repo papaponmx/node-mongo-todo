@@ -1,39 +1,55 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require('express')
+const bodyParser = require('body-parser')
+const { ObjectID } = require('mongodb')
 
-const { mongoose } = require('./db/mongoose.js');
-const { TodoModel } = require('./models/todo');
-const { UserModel } = require('./models/user');
+const { mongoose } = require('./db/mongoose.js')
+const { TodoModel } = require('./models/todo')
+const { UserModel } = require('./models/user')
 
-const app = express();
+const app = express()
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
 app.post('/todos', (req, res) => {
   const todo = new TodoModel({
     text: req.body.text
-  });
+  })
 
   todo.save().then((doc) => {
-    res.send(doc);
+    res.send(doc)
   }).catch((e) => {
-    res.status(400).send(e);
-  });
-  
-});
-
+    res.status(400).send(e)
+  })
+})
 
 app.get('/todos', (req, res) => {
   TodoModel.find().then((todos) => {
-    res.send({ todos })
+    res.send({ todos})
   }).catch(err => {
-     res.status(400).send(err);
-  });
+    res.status(400).send(err)
+  })
 })
 
+app.get('/todos/:id', (req, res) => {
+  const { id } = req.params
+
+  if (!ObjectID.isValid(id)) {
+    res.status(400).send(err)
+  } else {
+    TodoModel.findById(id)
+      .then((todo) => {
+        if (!todo) {
+          res.status(400).send({})
+          return console.log('Id not found')
+        }
+        res.send({ todo})
+      })
+      .catch(e => res.status(400).send(err))
+  }
+})
 
 app.listen(3000, () => {
-  console.log('Started on port 3000');
-});
+  console.log('Started on port 3000')
+})
 
-module.exports= { app };
+module.exports = { app}

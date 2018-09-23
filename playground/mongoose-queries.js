@@ -20,29 +20,29 @@ if(!ObjectID.isValid(userID)) {
 
 
 
-// if (!ObjectID.isValid(id)) {
-//  console.log('ID not valid');
-// }
+if (!ObjectID.isValid(id)) {
+ console.log('ID not valid');
+}
 
-// TodoModel.find({
-//   _id: id
-// }).then((todos) => {
-//   console.log('Todos', todos);
-// })
+TodoModel.find({
+  _id: id
+}).then((todos) => {
+  console.log('Todos', todos);
+})
 
-// TodoModel.findOne({
-//   _id: id
-// })
-// .then((todo) => {
-//   console.log('Todos', todo);
-// })
+TodoModel.findOne({
+  _id: id
+})
+.then((todo) => {
+  console.log('Todos', todo);
+})
 
-// TodoModel.findById(id)
-// .then((todo) => {
-//   if (!todo) {
-//     return console.log('Id not found');
-//   }
-//   console.log('Todos', todo);
-// })
-// .catch(e => console.log(e));
+TodoModel.findById(id)
+.then((todo) => {
+  if (!todo) {
+    return console.log('Id not found');
+  }
+  console.log('Todos', todo);
+})
+.catch(e => console.log(e));
  
