@@ -34,17 +34,16 @@ app.get('/todos/:id', (req, res) => {
   const { id } = req.params
 
   if (!ObjectID.isValid(id)) {
-    res.status(400).send(err)
+    res.status(400).send({})
   } else {
     TodoModel.findById(id)
       .then((todo) => {
         if (!todo) {
           res.status(400).send({})
-          return console.log('Id not found')
         }
         res.send({ todo})
       })
-      .catch(e => res.status(400).send(err))
+      .catch(err => res.status(400).send(err))
   }
 })
 
