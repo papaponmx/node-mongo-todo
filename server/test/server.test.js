@@ -3,7 +3,7 @@ const request = require('supertest')
 const { ObjectID } = require('mongodb')
 
 const { app } = require('../server')
-const { TodoModel } = require('../models/todo')
+const { Todo } = require('../models/todo')
 
 const initialTodos = [
   {
@@ -17,8 +17,8 @@ const initialTodos = [
 ]
 
 beforeEach(done => {
-  TodoModel.deleteMany({})
-    .then(() => TodoModel.insertMany(initialTodos))
+  Todo.deleteMany({})
+    .then(() => Todo.insertMany(initialTodos))
     .then(() => done())
     .catch(err => done(err))
 })
@@ -39,7 +39,7 @@ describe('POST /todos', () => {
           done(err)
         }
 
-        TodoModel.find({ text}).then(todos => {
+        Todo.find({ text}).then(todos => {
           expect(todos.length).toBe(1)
           expect(todos[0].text).toBe(text)
           done()
@@ -56,7 +56,7 @@ describe('POST /todos', () => {
         if (err) {
           return done(err)
         }
-        TodoModel.find().then((todos) => {
+        Todo.find().then((todos) => {
           expect(todos.length).toBe(2)
           done()
         }).catch(err => done(err))
