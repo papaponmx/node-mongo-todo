@@ -77,6 +77,7 @@ describe('GET /todos', () => {
 
 describe('GET /todos/:id', () => {
   it('should return todo doc', (done) => {
+    // console.log('DQTP', todos[0]._id.toHexString());
     request(app)
       .get(`/todos/${todos[0]._id.toHexString()}`)
       .expect(200)
