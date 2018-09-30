@@ -10,7 +10,7 @@ const validator = require('validator');
 //   }]
 // }
 
-var User = mongoose.model('User', {
+const User = mongoose.model('User', {
   email: {
     type: String,
     required: true,
