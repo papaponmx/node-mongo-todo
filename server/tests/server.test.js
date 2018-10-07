@@ -189,5 +189,52 @@ describe('GET /users/me', () => {
       .get('/users/me')
       .expect(401)
       .end(done)
+  });  
+});
+
+describe('POST /users', () => {
+  it('Should create user', (done) => {
+    const email = 'example@example.com';
+    const password = '123mnb!';
+    
+    request(app)
+      .post('/users')
+      .send({ email, password })
+      .expect(200)
+      .expect((res)=> {
+        expect(res.headers['x-auth']).toBeDefined();
+        expect(res.body._id).toBeDefined();
+        expect(res.body.email).toBe(email)
+      })
+      .end(done)
+    
+  });
+
+  it('Should return validation errors if request is invalid', (done) => {
+    request(app)
+      .post('/users')
+      .send({ })
+      .expect(400)
+      .expect((res) => { 
+        expect(res.body.errors).toBeDefined()
+      })
+      .end(done)
+  });
+
+  it('Should not create user if email in use', (done) => {
+    const email = 'example@example.com';
+    const password = '123mnb!';
+
+    request(app)
+    .post('/users')
+    .send({ email, password })
+    .expect(200)
+    .expect((res)=> {
+      request(app)
+      .post('/users')
+      .send({ email, password })
+      .expect(401)
+    })
+    .end(done)
   });
 });
